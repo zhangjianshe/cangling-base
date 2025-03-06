@@ -39,4 +39,4 @@ jobs:
     
     - name: Output Docker Image Tag
       run: |
-        echo "Docker Image Tag: ${{ steps.docker_build.outputs.tags }}" >> $GITHUB_OUTPUT
+        echo "docker_image_tag=${{ steps.docker_build.outputs.tags }}" >> $GITHUB_OUTPUT
