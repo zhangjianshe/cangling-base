@@ -36,7 +36,7 @@ jobs:
       id: cangling_builder
       uses: docker/build-push-action@v2
       with:
-        context: ./bulder
+        context: ./builder
         file: ./builder/Dockerfile
         push: true
         tags: |
