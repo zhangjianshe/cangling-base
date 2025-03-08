@@ -12,3 +12,5 @@ RUN apt update && apt install git curl openjdk-11-jdk ant maven -y \
     && apt-get install -y tzdata \
     && apt clean
 
+ENV NVM_DIR /root/.nvm
+RUN . "$NVM_DIR/nvm.sh" && nvm use --lts
