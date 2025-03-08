@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
-
+SHELL ["/bin/bash", "-c"]
 RUN apt update && apt install git curl openjdk-11-jdk ant maven -y \
     && apt install build-essential -y \
     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash \
