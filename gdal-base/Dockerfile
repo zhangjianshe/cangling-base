@@ -4,5 +4,8 @@ COPY environment /etc/environment
 COPY locale /etc/default/locale
 
 RUN apt-get update && \
-    apt-get install -y openjdk-11-jdk && \
-    apt-get clean
+    apt-get install -y locales && \
+    locale-gen en_US.UTF-8 
+
+RUN update-locale LANG=en_US.UTF-8 \
+    &&  apt-get clean
