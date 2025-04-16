@@ -10,7 +10,7 @@ RUN apt-get update && \
     update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
+ENV JAVA_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
 # Set environment variables for UTF-8
 ENV LANG=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8
