@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     wget \
     git \
-    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/apt/lists/* 
 RUN wget https://nginx.org/download/nginx-1.18.0.tar.gz &&  \
     tar -xzvf nginx-1.18.0.tar.gz &&  \
     git clone https://github.com/arut/nginx-rtmp-module.git
