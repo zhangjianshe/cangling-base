@@ -25,7 +25,7 @@ RUN cd nginx-1.26.0 && \
     --with-http_mp4_module \
     --with-http_flv_module && \
     make && make install
-
+COPY nginx-rtmp-module/stat.xsl  /usr/local/nginx/html/stat.xsl
 RUN rm -rf nginx-1.26.0 nginx-1.26.0.tar.gz nginx-rtmp-module
 
 RUN mkdir -p /tmp/hls /var/log/nginx && \
