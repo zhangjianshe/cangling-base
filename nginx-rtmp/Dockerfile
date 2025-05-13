@@ -15,6 +15,7 @@ RUN cd nginx-1.26.0 && \
     ./configure --add-module=../nginx-rtmp-module \
     --with-http_ssl_module \
     --prefix=/usr/local/nginx \
+    --with-http_sub_module \
     --conf-path=/etc/nginx/nginx.conf \
     --error-log-path=/var/log/nginx/error.log \
     --http-log-path=/var/log/nginx/access.log \
