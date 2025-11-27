@@ -1,10 +1,19 @@
 name: Build and Push Docker Image
 
 on:
+  # Triggers when a new Git tag is pushed (e.g., git push --tags)
   push:
     tags:
-      - '*'
-
+      - 'v*.*.*'
+    branches:
+      - 'release/*'
+  # Allows manual triggering from the GitHub Actions UI
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Specify an optional tag/version for manual deployment (e.g., 1.2.3)'
+        required: false
+        default: 'manual-run'
 jobs:
 
   build-and-push:
@@ -12,7 +21,11 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    
+
+    - name: Get tag version
+      id: get_tag_version # Added ID to get tag output
+      run: echo "TAG_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     
@@ -46,10 +59,10 @@ jobs:
         push: true
         tags: |
           ghcr.io/${{ github.repository_owner }}/builder:${{ github.sha }}
-          ghcr.io/${{ github.repository_owner }}/builder:4.1
+          ghcr.io/${{ github.repository_owner }}/builder:${{ steps.get_tag_version.outputs.TAG_VERSION }}
           ${{ secrets.DOCKER_USERNAME }}/builder:${{ github.sha }}
-          ${{ secrets.DOCKER_USERNAME }}/builder:4.1
-          harbor.cangling.cn:22002/cangling/builder:4.1
+          ${{ secrets.DOCKER_USERNAME }}/builder:${{ steps.get_tag_version.outputs.TAG_VERSION }}
+          harbor.cangling.cn:22002/cangling/builder:${{ steps.get_tag_version.outputs.TAG_VERSION }}
         platforms: linux/amd64,linux/arm64
     - name: Build nginx-rtmp
       id: cangling_nginx
@@ -60,10 +73,10 @@ jobs:
         push: true
         tags: |
           ghcr.io/${{ github.repository_owner }}/nginx-rtmp:${{ github.sha }}
-          ghcr.io/${{ github.repository_owner }}/nginx-rtmp:4.1
+          ghcr.io/${{ github.repository_owner }}/nginx-rtmp:${{ steps.get_tag_version.outputs.TAG_VERSION }}
           ${{ secrets.DOCKER_USERNAME }}/nginx-rtmp:${{ github.sha }}
-          ${{ secrets.DOCKER_USERNAME }}/nginx-rtmp:4.1
-          harbor.cangling.cn:22002/cangling/nginx-rtmp:4.1
+          ${{ secrets.DOCKER_USERNAME }}/nginx-rtmp:${{ steps.get_tag_version.outputs.TAG_VERSION }}
+          harbor.cangling.cn:22002/cangling/nginx-rtmp:${{ steps.get_tag_version.outputs.TAG_VERSION }}
         platforms: linux/amd64,linux/arm64
     - name: Build and Push
       id: docker_build
@@ -74,10 +87,10 @@ jobs:
         push: true
         tags: |
           ghcr.io/${{ github.repository_owner }}/gdal-base:${{ github.sha }}
-          ghcr.io/${{ github.repository_owner }}/gdal-base:4.1
+          ghcr.io/${{ github.repository_owner }}/gdal-base:${{ steps.get_tag_version.outputs.TAG_VERSION }}
           ${{ secrets.DOCKER_USERNAME }}/gdal-base:${{ github.sha }}
-          ${{ secrets.DOCKER_USERNAME }}/gdal-base:4.1
-          harbor.cangling.cn:22002/cangling/gdal-base:4.1
+          ${{ secrets.DOCKER_USERNAME }}/gdal-base:${{ steps.get_tag_version.outputs.TAG_VERSION }}
+          harbor.cangling.cn:22002/cangling/gdal-base:${{ steps.get_tag_version.outputs.TAG_VERSION }}
         platforms: linux/amd64,linux/arm64
     
     - name: Output Docker Image Tag
