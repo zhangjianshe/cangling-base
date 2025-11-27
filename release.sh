@@ -28,16 +28,14 @@ bump_version() {
 
 # Function to execute a command or echo it if in dry-run mode
 execute() {
-    if $DRY_RUN; then
-        echo "DRY-RUN: $*"
-    else
-        echo "Executing: $*"
-        "$@"
-        if [ $? -ne 0 ]; then
-            echo "Error executing command: '$*'" >&2
-            exit 1
-        fi
+
+    echo "Executing: $*"
+    "$@"
+    if [ $? -ne 0 ]; then
+        echo "Error executing command: '$*'" >&2
+        exit 1
     fi
+
 }
 
 # --- Main Script Logic ---
