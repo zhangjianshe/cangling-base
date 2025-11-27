@@ -107,10 +107,7 @@ execute git push origin "$TAG"
 execute git checkout master
 
 echo ""
-if $DRY_RUN; then
-    echo "--- DRY-RUN complete. Review the above commands. ---"
-    echo "To execute for real, run: ./version_bumper.sh"
-else
-    echo "✅ Success! Version updated to ${NEW_VERSION}, committed, and tag ${TAG} pushed."
-    echo "You may now continue with your deployment or push the main branch changes."
-fi
+
+echo "✅ Success! Version updated to ${NEW_VERSION}, committed, and tag ${TAG} pushed."
+echo "You may now continue with your deployment or push the main branch changes."
+
