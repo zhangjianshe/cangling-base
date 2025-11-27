@@ -89,7 +89,7 @@ git commit -m "change to new version"
 
 
 TAG="v${NEW_VERSION}"
-NEW_BRANCH=release/${TAG}
+NEW_BRANCH=${TAG}
 echo "New Tag: $TAG"
 
 git push origin
