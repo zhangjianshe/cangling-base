@@ -54,11 +54,6 @@ if ! command -v git &> /dev/null || ! command -v sed &> /dev/null; then
     exit 1
 fi
 
-# 2. Check for the POM file
-if [ ! -f "$POM_FILE" ]; then
-    echo "Error: Maven POM file not found at $POM_FILE." >&2
-    exit 1
-fi
 
 # 3. Check for uncommitted changes (prevents tagging a dirty tree)
 if [ -n "$(git status --porcelain)" ]; then
@@ -69,7 +64,6 @@ fi
 # 4. Extract current version from pom.xml
 echo "Reading current version from $VERSION_FILE..."
 # Use grep and sed to safely extract the version from the main <version> tag
-#CURRENT_VERSION=$(grep -m 1 -A 3 '<groupId' "$POM_FILE" | grep -A 3 '<artifactId' | grep -A 1 '<version' | grep '<version' | sed -e 's/.*<version>//' -e 's/<\/version>.*//' | head -n 1 | sed 's/ //g')
 CURRENT_VERSION=$(cat "$VERSION_FILE")
 if [ -z "$CURRENT_VERSION" ]; then
     echo "Error: Could not extract version from $VERSION_FILE. Ensure version.txt tag is present." >&2
