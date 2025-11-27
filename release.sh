@@ -93,7 +93,7 @@ NEW_BRANCH=${TAG}
 echo "New Tag: $TAG"
 
 git push origin
-git checkout -b $NEW_BRANCH
+#git checkout -b $NEW_BRANCH
 
 
 # 8. Tag the commit
@@ -102,9 +102,9 @@ execute git tag -a "$TAG" -m "Version ${NEW_VERSION}"
 
 # 9. Push the tag to origin
 echo "Pushing tag ${TAG} to origin..."
-execute git push origin $NEW_BRANCH
+#execute git push origin $NEW_BRANCH
 execute git push origin "$TAG"
-execute git checkout master
+#execute git checkout master
 
 echo ""
 
