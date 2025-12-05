@@ -1,4 +1,4 @@
-FROM ghcr.io/osgeo/gdal:ubuntu-full-3.8.0
+FROM ghcr.io/osgeo/gdal:ubuntu-full-3.10.0
 
 # Install locales package, generate en_US.UTF-8, and install openjdk-17-jdk
 RUN apt-get update && \
