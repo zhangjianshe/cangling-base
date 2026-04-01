@@ -1,60 +1,47 @@
 # Stage 1: Build Stage
 FROM ubuntu:22.04 AS builder
 
-# 必须声明 TARGETARCH 才能捕捉 buildx 传入的架构信息 (amd64/arm64)
+# 捕捉架构信息
 ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 1. 完善编译依赖：加入 libgeotiff, bison, flex, 以及遥感常用的 HDF5/NetCDF
+# 1. 完善依赖
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    cmake \
-    wget \
-    git \
-    python3-dev \
-    python3-numpy \
-    swig \
-    ant \
+    build-essential cmake wget git swig ant \
+    python3-dev python3-numpy \
     openjdk-11-jdk \
-    libproj-dev \
-    libgeos-dev \
-    libsqlite3-dev \
-    libtiff-dev \
-    libgeotiff-dev \
-    libjpeg-dev \
-    libpng-dev \
-    libwebp-dev \
-    libzstd-dev \
-    liblzma-dev \
-    libcurl4-openssl-dev \
-    libhdf5-dev \
-    libnetcdf-dev \
-    pkg-config \
-    bison \
-    flex \
+    libproj-dev libgeos-dev libsqlite3-dev \
+    libtiff-dev libgeotiff-dev libjpeg-dev libpng-dev \
+    libwebp-dev libzstd-dev liblzma-dev libcurl4-openssl-dev \
+    libhdf5-dev libnetcdf-dev pkg-config bison flex \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. 修复 JAVA_HOME：利用 TARGETARCH 动态设置路径
-# Ubuntu 的路径规律是 java-11-openjdk-amd64 或 java-11-openjdk-arm64
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-$TARGETARCH
+# 2. 动态修复 JAVA_HOME 路径 (更健壮的写法)
+RUN export J_ARCH=$( [ "$TARGETARCH" = "arm64" ] && echo "arm64" || echo "amd64" ) && \
+    ln -s /usr/lib/jvm/java-11-openjdk-$J_ARCH /usr/lib/jvm/default-java
+ENV JAVA_HOME=/usr/lib/jvm/default-java
 ENV PATH=$JAVA_HOME/bin:$PATH
 
-# 下载并解压 GDAL
 WORKDIR /src
 RUN wget https://download.osgeo.org/gdal/3.12.0/gdal-3.12.0.tar.gz \
-    && tar -xvf gdal-3.12.0.tar.gz
+    && tar -xzf gdal-3.12.0.tar.gz
 
 # 3. 编译 GDAL
-# 显式指定 JAVA 相关的 JNI 路径确保编译成功
 WORKDIR /src/gdal-3.12.0/build
+# 关键修改：增加内存安全判断和 Java 路径硬连接
 RUN cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
     -DGDAL_BUILD_OPTIONAL_DRIVERS=ON \
     -DBUILD_JAVA_BINDINGS=ON \
     -DBUILD_PYTHON_BINDINGS=ON \
+    -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_INSTALL_PREFIX=/usr/local \
     -DGDAL_USE_INTERNAL_LIBS=WHEN_NO_EXTERNAL \
-    && cmake --build . -j$(nproc) \
+    # 显式指定内联 Java 路径防止 CMake 找不到
+    -DJAVA_INCLUDE_PATH=$JAVA_HOME/include \
+    -DJAVA_AWT_LIBRARY=$JAVA_HOME/lib/libjawt.so \
+    -DJAVA_JVM_LIBRARY=$JAVA_HOME/lib/server/libjvm.so \
+    && cmake --build . -j$(nproc) || cmake --build . -j1 \
     && cmake --install .
 
 # Stage 2: Runtime Stage
@@ -63,40 +50,25 @@ FROM ubuntu:22.04
 ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 4. 安装运行时必备库 (保持与 Builder 阶段版本一致)
+# 4. 运行时环境
 RUN apt-get update && apt-get install -y \
-    libproj-dev \
-        libgeos-dev \
-        libsqlite3-dev \
-        libtiff-dev \
-        libgeotiff-dev \
-        libjpeg-dev \
-        libpng-dev \
-        libwebp-dev \
-        libzstd-dev \
-        liblzma-dev \
-        libcurl4-openssl-dev \
-        libhdf5-dev \
-        libnetcdf-dev \
-        bison \
-        flex \
-    openjdk-11-jre-headless \
-    python3-minimal \
-    locales \
+    libproj22 libgeos-c1v5 libsqlite3-0 libtiff5 libgeotiff5 \
+    libjpeg8 libpng16-16 libwebp7 libzstd1 liblzma5 \
+    libcurl4 libhdf5-103 libnetcdf19 \
+    openjdk-11-jre-headless python3-minimal locales \
     && locale-gen en_US.UTF-8 \
-    && update-locale LANG=en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-# 拷贝编译成果
+# 拷贝成果
 COPY --from=builder /usr/local /usr/local
 RUN ldconfig
 
-# 5. 设置环境变量
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-$TARGETARCH
-ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+# 5. 环境变量修复
+# 修复报错的 LD_LIBRARY_PATH 定义方式
+ENV LD_LIBRARY_PATH=/usr/local/lib
 ENV GDAL_DATA=/usr/local/share/gdal
-# Java 11+ 访问 JNI 原生内存必须开启此选项
-ENV JAVA_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED"
+# 高光谱处理必备：增加内省权限
+ENV JAVA_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED"
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 

@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8843a104-6506-4d3f-ab29-5118ac103540" name="Changes" comment="4.1.7 support gdal 3.12.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gdal-base/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/gdal-base/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +18,10 @@
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="true" />
   </component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -103,6 +106,7 @@
       <workItem from="1764224006537" duration="65000" />
       <workItem from="1764224099855" duration="17000" />
       <workItem from="1775015707092" duration="6779000" />
+      <workItem from="1775026638134" duration="7976000" />
     </task>
     <task id="LOCAL-00001" summary="ADD PUSH TO CANLING REPO">
       <option name="closed" value="true" />
