@@ -1,31 +1,25 @@
 # Stage 1: Build Stage
+# Stage 1: Build Stage
 FROM ubuntu:22.04 AS builder
 
-# Prevent interactive prompts during build
+# 必须声明这个 ARG 才能在 ENV 中使用内置变量
+ARG TARGETARCH
+
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install build dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    cmake \
-    wget \
-    git \
-    python3-dev \
-    python3-numpy \
-    swig \
-    ant \
-    openjdk-11-jdk \
-    libproj-dev \
-    libgeos-dev \
-    libsqlite3-dev \
-    libtiff-dev \
-    libcurl4-openssl-dev \
-    pkg-config \
-    && rm -rf /var/lib/apt/lists/*
+# ... 安装依赖的步骤保持不变 ...
 
-# Set Java Home for JNI bindings
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-$(dpkg --print-architecture)
+# 修改这里：根据架构映射路径
+# amd64 对应 x86_64, arm64 对应 aarch64
+RUN if [ "$TARGETARCH" = "amd64" ]; then \
+        echo "JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> /etc/environment; \
+    else \
+        echo "JAVA_HOME=/usr/lib/jvm/java-11-openjdk-arm64" >> /etc/environment; \
+    fi
 
+# 或者更直接地在 ENV 中使用转换逻辑（如果路径遵循特定规则）
+# 对于 Ubuntu 11-jdk，路径通常就是这样：
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-$TARGETARCH
 # Download GDAL 3.12.0
 WORKDIR /src
 RUN wget https://download.osgeo.org/gdal/3.12.0/gdal-3.12.0.tar.gz \
