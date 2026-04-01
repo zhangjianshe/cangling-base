@@ -56,6 +56,9 @@ RUN apt-get update && apt-get install -y \
     libcurl4 \
     openjdk-11-jre-headless \
     python3-minimal \
+    locales && \
+    locale-gen en_US.UTF-8 && \
+    update-locale LANG=en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy compiled binaries and libraries from builder
