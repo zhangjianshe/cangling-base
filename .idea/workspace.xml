@@ -106,7 +106,7 @@
       <workItem from="1764224006537" duration="65000" />
       <workItem from="1764224099855" duration="17000" />
       <workItem from="1775015707092" duration="6779000" />
-      <workItem from="1775026638134" duration="8882000" />
+      <workItem from="1775026638134" duration="10185000" />
     </task>
     <task id="LOCAL-00001" summary="ADD PUSH TO CANLING REPO">
       <option name="closed" value="true" />
@@ -244,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775057033485</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="4.1.7 support gdal 3.12.0">
+      <option name="closed" value="true" />
+      <created>1775058301793</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1775058301793</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

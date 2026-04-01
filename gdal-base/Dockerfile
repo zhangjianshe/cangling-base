@@ -12,7 +12,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends eatmydata && \
     eatmydata apt-get install -y \
     build-essential cmake wget git swig ant \
-    python3-dev python3-numpy \
+    python3-dev python3-numpy python3-setuptools python3-wheel \
     openjdk-11-jdk \
     libproj-dev libgeos-dev libsqlite3-dev \
     libtiff-dev libgeotiff-dev libjpeg-dev libpng-dev \
@@ -38,13 +38,17 @@ RUN cmake .. \
     -DGDAL_BUILD_OPTIONAL_DRIVERS=ON \
     -DBUILD_JAVA_BINDINGS=ON \
     -DBUILD_PYTHON_BINDINGS=ON \
+    # 强制 Python 绑定安装到系统目录，避免权限问题
+    -DGDAL_PYTHON_INSTALL_PREFIX=/usr/local \
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_INSTALL_PREFIX=/usr/local \
     -DGDAL_USE_INTERNAL_LIBS=WHEN_NO_EXTERNAL \
-    # 显式指定内联 Java 路径防止 CMake 找不到
     -DJAVA_INCLUDE_PATH=$JAVA_HOME/include \
     -DJAVA_AWT_LIBRARY=$JAVA_HOME/lib/libjawt.so \
     -DJAVA_JVM_LIBRARY=$JAVA_HOME/lib/server/libjvm.so \
+    -DJAVA_INCLUDE_PATH=/usr/lib/jvm/default-java/include \
+    -DJAVA_AWT_LIBRARY=/usr/lib/jvm/default-java/lib/libjawt.so \
+    -DJAVA_JVM_LIBRARY=/usr/lib/jvm/default-java/lib/server/libjvm.so \
     && cmake --build . -j$(nproc) || cmake --build . -j1 \
     && cmake --install .
 
