@@ -6,7 +6,11 @@ ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
 # 1. 完善依赖
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && \
+    # 核心修复：防止 libc-bin 在 arm64 模拟器下崩溃
+    mkdir -p /util-linux && \
+    apt-get install -y --no-install-recommends eatmydata && \
+    eatmydata apt-get install -y \
     build-essential cmake wget git swig ant \
     python3-dev python3-numpy \
     openjdk-11-jdk \
