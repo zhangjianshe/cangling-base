@@ -55,33 +55,41 @@ RUN cmake .. \
     && cmake --install .
 
 # Stage 2: Runtime Stage
+# Stage 2: Runtime Stage
 FROM ubuntu:22.04
 
 ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 4. 运行时环境
+# 安装运行时必备库
 RUN apt-get update && apt-get install -y \
     libproj22 libgeos-c1v5 libsqlite3-0 libtiff5 libgeotiff5 \
     libjpeg8 libpng16-16 libwebp7 libzstd1 liblzma5 \
     libcurl4 libhdf5-103 libnetcdf19 \
-    libxml2 libopenjp2-7  \
+    libxml2 libopenjp2-7 \
     openjdk-11-jre-headless python3-minimal locales \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
 # 拷贝成果
 COPY --from=builder /usr/local /usr/local
+# 刷新动态库缓存
 RUN ldconfig
 
-# 5. 环境变量修复
-# 修复报错的 LD_LIBRARY_PATH 定义方式
-ENV LD_LIBRARY_PATH=/usr/local/lib
+# 设置环境变量
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-$TARGETARCH
+# 补充关键路径
+ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/lib/x86_64-linux-gnu
 ENV GDAL_DATA=/usr/local/share/gdal
-# 高光谱处理必备：增加内省权限
-ENV JAVA_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED"
+ENV PROJ_LIB=/usr/local/share/proj
+# 增加 CLASSPATH 方便 Java 调用
+ENV CLASSPATH=/usr/local/share/java/gdal.jar:$CLASSPATH
+
+# 内存治理与 JNI 权限
+ENV JAVA_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED -Xms2g -Xmx8g"
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
 WORKDIR /app
-CMD ["gdalinfo", "--version"]
+# 建议默认执行 gdalinfo 验证驱动加载情况
+CMD ["gdalinfo", "--formats"]
