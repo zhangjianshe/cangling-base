@@ -18,6 +18,7 @@ RUN apt-get update && \
     libtiff-dev libgeotiff-dev libjpeg-dev libpng-dev \
     libwebp-dev libzstd-dev liblzma-dev libcurl4-openssl-dev \
     libhdf5-dev libnetcdf-dev pkg-config bison flex \
+    libxml2-dev libopenjp2-7-dev libnetcdf-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. 动态修复 JAVA_HOME 路径 (更健壮的写法)
@@ -38,7 +39,8 @@ RUN cmake .. \
     -DGDAL_BUILD_OPTIONAL_DRIVERS=ON \
     -DBUILD_JAVA_BINDINGS=ON \
     -DBUILD_PYTHON_BINDINGS=ON \
-    # 强制 Python 绑定安装到系统目录，避免权限问题
+    -DGDAL_USE_LIBDEFLATE=ON \
+    -DGDAL_USE_ZSTD=ON \
     -DGDAL_PYTHON_INSTALL_PREFIX=/usr/local \
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_INSTALL_PREFIX=/usr/local \
@@ -63,6 +65,7 @@ RUN apt-get update && apt-get install -y \
     libproj22 libgeos-c1v5 libsqlite3-0 libtiff5 libgeotiff5 \
     libjpeg8 libpng16-16 libwebp7 libzstd1 liblzma5 \
     libcurl4 libhdf5-103 libnetcdf19 \
+    libxml2 libopenjp2-7  \
     openjdk-11-jre-headless python3-minimal locales \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
