@@ -71,10 +71,18 @@ RUN apt-get update && apt-get install -y \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-# 拷贝成果
+# 1. 拷贝编译成果 (GDAL 核心)
 COPY --from=builder /usr/local /usr/local
-# 刷新动态库缓存
-RUN ldconfig
+
+# 2. 核心修复：确保 PROJ 数据库存在
+# 如果 builder 阶段是通过 apt 安装的 proj，数据库通常在 /usr/share/proj
+COPY --from=builder /usr/share/proj /usr/share/proj
+
+# 4. 环境变量对齐 (非常重要)
+ENV PROJ_LIB=/usr/share/proj
+ENV GDAL_DATA=/usr/local/share/gdal
+RUN ln -s /usr/local/lib/jni/libgdalalljni.so /usr/local/lib/libgdalalljni.so && \
+    ldconfig
 
 # 设置环境变量
 ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-$TARGETARCH
@@ -86,7 +94,7 @@ ENV PROJ_LIB=/usr/local/share/proj
 ENV CLASSPATH=/usr/local/share/java/gdal.jar:$CLASSPATH
 
 # 内存治理与 JNI 权限
-ENV JAVA_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED -Xms2g -Xmx8g"
+ENV JAVA_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED -Xms3g -Xmx12g"
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
