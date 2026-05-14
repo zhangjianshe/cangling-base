@@ -5,10 +5,7 @@ ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
 # 1. 完善依赖
-RUN apt-get update && \
-    mkdir -p /util-linux && \
-    apt-get install -y --no-install-recommends eatmydata && \
-    eatmydata apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential cmake wget git swig ant \
     python3-dev python3-numpy python3-setuptools python3-wheel \
     openjdk-11-jdk \
