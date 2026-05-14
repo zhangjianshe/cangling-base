@@ -52,8 +52,8 @@ jobs:
       id: cangling_nginx
       uses: docker/build-push-action@v2
       with:
-        context: ./builder-rtmp
-        file: ./builder-rtmp/Dockerfile
+        context: ./nginx-rtmp
+        file: ./nginx-rtmp/Dockerfile
         push: true
         tags: |
           ghcr.io/${{ github.repository_owner }}/nginx-rtmp:${{ github.sha }}
