@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install -y \
 # Copy only the compiled output from the builder
 COPY --from=builder /usr/local/nginx /usr/local/nginx
 COPY --from=builder /etc/nginx /etc/nginx
-COPY --from=builder /usr/local/nginx/html/stat.xsl /usr/local/nginx/html/stat.xsl
+COPY --from=builder /src/nginx-rtmp-module/stat.xsl /usr/local/nginx/html/stat.xsl
 
 # Set up directories
 RUN mkdir -p /tmp/hls /var/log/nginx /logs && \
