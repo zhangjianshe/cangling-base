@@ -1,11 +1,7 @@
 # --- Stage 1: Builder ---
 FROM ubuntu:22.04 AS builder
 ARG NGINX_VERSION=1.31.0
-
-RUN apt-get update && apt-get install -y \
-    build-essential libpcre3-dev libssl-dev zlib1g-dev wget git \
-    && rm -rf /var/lib/apt/lists/*
-
+WORKDIR /src
 RUN wget https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
     tar -xzvf nginx-${NGINX_VERSION}.tar.gz && \
     git clone https://github.com/arut/nginx-rtmp-module.git && \
@@ -34,7 +30,7 @@ RUN apt-get update && apt-get install -y \
 # Copy only the compiled output from the builder
 COPY --from=builder /usr/local/nginx /usr/local/nginx
 COPY --from=builder /etc/nginx /etc/nginx
-COPY --from=builder /src/nginx-rtmp-module/stat.xsl /usr/local/nginx/html/stat.xsl
+COPY --from=builder /src/nginx-rtmp-module/stat.xsl /var/www/html/stat.xsl
 
 # Set up directories
 RUN mkdir -p /tmp/hls /var/log/nginx /logs && \
