@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8843a104-6506-4d3f-ab29-5118ac103540" name="Changes" comment="upgrade nginx to 1.31.0">
+    <list default="true" id="8843a104-6506-4d3f-ab29-5118ac103540" name="Changes" comment="FIX NGINX COMPILE BUG.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +22,13 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="tEeP6HTf" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -32,33 +39,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/satway/dev/cangling-base&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Facets&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/satway/dev/cangling-geoserver",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Facets",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.github/workflows" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -86,8 +97,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26574.91" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26574.91" />
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
       </set>
     </attachedChunks>
   </component>
@@ -110,7 +121,12 @@
       <workItem from="1775103735826" duration="1919000" />
       <workItem from="1776347211632" duration="706000" />
       <workItem from="1778316485584" duration="32000" />
-      <workItem from="1778724861311" duration="1165000" />
+      <workItem from="1778724861311" duration="14910000" />
+      <workItem from="1778829015716" duration="6318000" />
+      <workItem from="1778915785540" duration="1204000" />
+      <workItem from="1779076266802" duration="609000" />
+      <workItem from="1779703080394" duration="518000" />
+      <workItem from="1782115489580" duration="3000" />
     </task>
     <task id="LOCAL-00001" summary="ADD PUSH TO CANLING REPO">
       <option name="closed" value="true" />
@@ -312,7 +328,79 @@
       <option name="project" value="LOCAL" />
       <updated>1778725175180</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="shrink the final image volume size">
+      <option name="closed" value="true" />
+      <created>1778733762691</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1778733762691</updated>
+    </task>
+    <task id="LOCAL-00027" summary="fix github  compile error">
+      <option name="closed" value="true" />
+      <created>1778734286594</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1778734286594</updated>
+    </task>
+    <task id="LOCAL-00028" summary="独立编译 nginx">
+      <option name="closed" value="true" />
+      <created>1778745518313</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1778745518313</updated>
+    </task>
+    <task id="LOCAL-00029" summary="独立编译 nginx">
+      <option name="closed" value="true" />
+      <created>1778745661433</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1778745661433</updated>
+    </task>
+    <task id="LOCAL-00030" summary="独立编译 nginx">
+      <option name="closed" value="true" />
+      <created>1778746257322</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1778746257322</updated>
+    </task>
+    <task id="LOCAL-00031" summary="FIX NGINX COMPILE BUG.">
+      <option name="closed" value="true" />
+      <created>1778746899122</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1778746899122</updated>
+    </task>
+    <task id="LOCAL-00032" summary="FIX NGINX COMPILE BUG.">
+      <option name="closed" value="true" />
+      <created>1778747393316</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1778747393316</updated>
+    </task>
+    <task id="LOCAL-00033" summary="FIX NGINX COMPILE BUG.">
+      <option name="closed" value="true" />
+      <created>1778747944203</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1778747944203</updated>
+    </task>
+    <task id="LOCAL-00034" summary="FIX NGINX COMPILE BUG.">
+      <option name="closed" value="true" />
+      <created>1778749111503</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1778749111503</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,7 +425,11 @@
     <MESSAGE value="优化DOCK镜像的环境变量和时区设置" />
     <MESSAGE value="change to 3.12.3" />
     <MESSAGE value="upgrade nginx to 1.31.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="upgrade nginx to 1.31.0" />
+    <MESSAGE value="shrink the final image volume size" />
+    <MESSAGE value="fix github  compile error" />
+    <MESSAGE value="独立编译 nginx" />
+    <MESSAGE value="FIX NGINX COMPILE BUG." />
+    <option name="LAST_COMMIT_MESSAGE" value="FIX NGINX COMPILE BUG." />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
