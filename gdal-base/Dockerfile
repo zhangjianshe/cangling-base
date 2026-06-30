@@ -14,9 +14,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libwebp-dev libzstd-dev liblzma-dev libcurl4-openssl-dev \
     libhdf5-dev libnetcdf-dev pkg-config bison flex \
     libxml2-dev libopenjp2-7-dev \
-    fontconfig \               
-    fonts-wqy-zenhei \         
-    fonts-wqy-microhei \    
     && rm -rf /var/lib/apt/lists/*
 
 # 2. 动态修复 JAVA_HOME
@@ -61,6 +58,9 @@ RUN apt-get update && apt-get install -y \
     libcurl4 libhdf5-103-1 libnetcdf19 \
     libxml2 libopenjp2-7 \
     openjdk-11-jre-headless python3-minimal locales \
+    fontconfig \
+    fonts-wqy-zenhei \
+    fonts-wqy-microhei \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
