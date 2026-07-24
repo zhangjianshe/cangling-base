@@ -4,7 +4,7 @@ FROM ubuntu:22.04 AS builder
 ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 1. 完善依赖
+# 1. 安装编译依赖
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential cmake wget git swig ant \
     python3-dev python3-numpy python3-setuptools python3-wheel \
@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxml2-dev libopenjp2-7-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. 动态修复 JAVA_HOME
+# 2. 配置 JAVA_HOME
 RUN export J_ARCH=$( [ "$TARGETARCH" = "arm64" ] && echo "arm64" || echo "amd64" ) && \
     ln -s /usr/lib/jvm/java-11-openjdk-$J_ARCH /usr/lib/jvm/default-java
 ENV JAVA_HOME=/usr/lib/jvm/default-java
@@ -44,15 +44,22 @@ RUN cmake .. \
     && cmake --build . -j$(nproc) || cmake --build . -j1 \
     && cmake --install .
 
+# =========================================================
 # Stage 2: Runtime Stage
+# =========================================================
 FROM ubuntu:22.04
 
 ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 1. 安装运行时必备库 (注意：去掉了末尾多余的反斜杠)
-RUN apt-get update && apt-get install -y \
+# 1. 基础运行时依赖 + Docker 官方源依赖 + bsdutils (包含 script 工具)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release \
     tzdata \
+    bsdutils \
     libproj22 libgeos-c1v5 libsqlite3-0 libtiff5 libgeotiff5 \
     libjpeg8 libpng16-16 libwebp7 libzstd1 liblzma5 \
     libcurl4 libhdf5-103-1 libnetcdf19 \
@@ -64,30 +71,42 @@ RUN apt-get update && apt-get install -y \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. 设置时区 (Asia/Shanghai)
+# 2. 核心新增：添加 Docker 官方 Apt 源并仅安装 Docker CLI & Docker Compose Plugin
+RUN install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
+    chmod a+r /etc/apt/keyrings/docker.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" > /etc/apt/sources.list.d/docker.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        docker-ce-cli \
+        docker-compose-plugin && \
+    rm -rf /var/lib/apt/lists/*
+
+# 3. 设置时区 (Asia/Shanghai)
 RUN ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" > /etc/timezone && \
     dpkg-reconfigure --frontend noninteractive tzdata
 
 ENV TZ=Asia/Shanghai
 
-# 3. 拷贝编译成果
+# 4. 拷贝 GDAL 产物
 COPY --from=builder /usr/local /usr/local
 COPY --from=builder /usr/share/proj /usr/share/proj
 
-# 4. 刷新动态库 & 建立 JNI 软链接
+# 5. 动态库 & JNI 映射
 RUN ln -s /usr/local/lib/jni/libgdalalljni.so /usr/local/lib/libgdalalljni.so && \
     ldconfig
 
-# 5. 设置环境变量 (修正 JAVA_HOME 变量在运行时的准确性)
+# 6. 配置环境变量
 RUN export J_ARCH=$( [ "$TARGETARCH" = "arm64" ] && echo "arm64" || echo "amd64" ) && \
     echo "export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-$J_ARCH" >> /etc/profile
+
 ENV LD_LIBRARY_PATH=/usr/local/lib/jni:/usr/local/lib:/usr/lib/x86_64-linux-gnu
 ENV PROJ_LIB=/usr/share/proj
 ENV GDAL_DATA=/usr/local/share/gdal
 ENV CLASSPATH=/usr/local/share/java/gdal.jar:$CLASSPATH
 
-# 6. JVM 内存与 JNI 权限 (增加 MaxDirectMemorySize 适配 98TiB 数据处理)
 ENV JAVA_OPTS="-Xms4g -Xmx12g -XX:MaxDirectMemorySize=8g \
                -Djava.library.path=/usr/local/lib/jni \
                -Xbootclasspath/a:/usr/local/share/java/gdal.jar \
@@ -98,5 +117,6 @@ ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
 WORKDIR /app
-# 验证：检查版本与时区
-CMD ["sh", "-c", "date && gdalinfo --version && gdalinfo --formats"]
+
+# 校验 Docker CLI, Docker Compose 及 GDAL 是否完全可用
+CMD ["sh", "-c", "docker --version && docker compose version && gdalinfo --version"]

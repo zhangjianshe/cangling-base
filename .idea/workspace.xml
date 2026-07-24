@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8843a104-6506-4d3f-ab29-5118ac103540" name="Changes" comment="FIX NGINX COMPILE BUG.">
+    <list default="true" id="8843a104-6506-4d3f-ab29-5118ac103540" name="Changes" comment="update font build.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gdal-base/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/gdal-base/Dockerfile" afterDir="false" />
     </list>
@@ -14,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="19" />
+    <option name="cachedIndexableFilesCount" value="21" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,23 +35,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.7422617853145246" />
-      <entry key="MS500" value="1.9421312860093725" />
-      <entry key="S2" value="2.04053488840949" />
-      <entry key="S5" value="3.6784386523871366" />
-      <entry key="S10" value="8.362154858544267" />
-      <entry key="S30" value="19.846978021999902" />
-      <entry key="S60" value="26.518883517991085" />
-      <entry key="M2" value="31.792796676867987" />
-      <entry key="M5" value="36.21761064577538" />
-      <entry key="M10" value="38.008248215711596" />
-      <entry key="M15" value="38.648297786468824" />
-      <entry key="M30" value="39.31180778974006" />
-      <entry key="H1" value="39.65273958244844" />
-      <entry key="H2" value="39.8255685920792" />
-      <entry key="H4" value="39.91258271570954" />
-      <entry key="D1" value="39.985402345937665" />
-      <entry key="W1" value="39.99791393108974" />
+      <entry key="MS100" value="1.5823667933498475" />
+      <entry key="MS500" value="1.909716317730941" />
+      <entry key="S2" value="2.865564494093955" />
+      <entry key="S5" value="5.509679085266187" />
+      <entry key="S10" value="10.178584943788886" />
+      <entry key="S30" value="23.09741971169385" />
+      <entry key="S60" value="31.325674399565433" />
+      <entry key="M2" value="37.87209520106745" />
+      <entry key="M5" value="43.34090096833451" />
+      <entry key="M10" value="45.54799320134712" />
+      <entry key="M15" value="46.3362452707017" />
+      <entry key="M30" value="47.153078706635334" />
+      <entry key="H1" value="47.5726807679987" />
+      <entry key="H2" value="47.78536322559544" />
+      <entry key="H4" value="47.89243573926755" />
+      <entry key="D1" value="47.98203833873464" />
+      <entry key="W1" value="47.99743320699921" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -73,23 +73,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.6982578022918948" />
-      <entry key="MS500" value="1.9315586102409399" />
-      <entry key="S2" value="2.0376775933082203" />
-      <entry key="S5" value="3.675905746423441" />
-      <entry key="S10" value="8.358946662229783" />
-      <entry key="S30" value="19.844332370732975" />
-      <entry key="S60" value="26.51699835737338" />
-      <entry key="M2" value="31.79157500375625" />
-      <entry key="M5" value="36.21701377889728" />
-      <entry key="M10" value="38.00792632490177" />
-      <entry key="M15" value="38.64807747539666" />
-      <entry key="M30" value="39.311694637549685" />
-      <entry key="H1" value="39.65268223009528" />
-      <entry key="H2" value="39.825539718341346" />
-      <entry key="H4" value="39.91256822900614" />
-      <entry key="D1" value="39.9853999245276" />
-      <entry key="W1" value="39.99791358500309" />
+      <entry key="MS100" value="1.552674647141338" />
+      <entry key="MS500" value="1.8940228687141" />
+      <entry key="S2" value="2.757213672774972" />
+      <entry key="S5" value="5.40262298060204" />
+      <entry key="S10" value="10.102882992982455" />
+      <entry key="S30" value="23.064166409178227" />
+      <entry key="S60" value="31.30746416421316" />
+      <entry key="M2" value="37.8624260655566" />
+      <entry key="M5" value="43.33684969975294" />
+      <entry key="M10" value="45.54593061325057" />
+      <entry key="M15" value="46.33486140712597" />
+      <entry key="M30" value="47.152382209814974" />
+      <entry key="H1" value="47.57233134637797" />
+      <entry key="H2" value="47.785188217355014" />
+      <entry key="H4" value="47.89234816026534" />
+      <entry key="D1" value="47.982023731789056" />
+      <entry key="W1" value="47.9974311200363" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -157,6 +157,25 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="cangling-base" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="cangling-base" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -192,7 +211,11 @@
       <workItem from="1779703080394" duration="518000" />
       <workItem from="1782115489580" duration="3000" />
       <workItem from="1782784330588" duration="500000" />
-      <workItem from="1782814381540" duration="328000" />
+      <workItem from="1782814381540" duration="563000" />
+      <workItem from="1784073227682" duration="1585000" />
+      <workItem from="1784084736003" duration="605000" />
+      <workItem from="1784192013151" duration="280000" />
+      <workItem from="1784872956501" duration="132000" />
     </task>
     <task id="LOCAL-00001" summary="ADD PUSH TO CANLING REPO">
       <option name="closed" value="true" />
@@ -466,7 +489,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778749111503</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="update font build.">
+      <option name="closed" value="true" />
+      <created>1782814751560</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1782814751560</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -495,10 +526,10 @@
     <MESSAGE value="fix github  compile error" />
     <MESSAGE value="独立编译 nginx" />
     <MESSAGE value="FIX NGINX COMPILE BUG." />
-    <option name="LAST_COMMIT_MESSAGE" value="FIX NGINX COMPILE BUG." />
+    <MESSAGE value="update font build." />
+    <option name="LAST_COMMIT_MESSAGE" value="update font build." />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
-    <settings-migrated>true</settings-migrated>
   </component>
 </project>
