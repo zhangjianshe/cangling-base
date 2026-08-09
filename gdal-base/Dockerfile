@@ -60,6 +60,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     lsb-release \
     tzdata \
     bsdutils \
+    libgomp1 \
     libproj22 libgeos-c1v5 libsqlite3-0 libtiff5 libgeotiff5 \
     libjpeg8 libpng16-16 libwebp7 libzstd1 liblzma5 \
     libcurl4 libhdf5-103-1 libnetcdf19 \
