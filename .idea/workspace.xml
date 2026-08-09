@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8843a104-6506-4d3f-ab29-5118ac103540" name="Changes" comment="update font build.">
+    <list default="true" id="8843a104-6506-4d3f-ab29-5118ac103540" name="Changes" comment="基础镜像添加 docker 客户端">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gdal-base/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/gdal-base/Dockerfile" afterDir="false" />
     </list>
@@ -35,23 +35,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.5823667933498475" />
-      <entry key="MS500" value="1.909716317730941" />
-      <entry key="S2" value="2.865564494093955" />
-      <entry key="S5" value="5.509679085266187" />
-      <entry key="S10" value="10.178584943788886" />
-      <entry key="S30" value="23.09741971169385" />
-      <entry key="S60" value="31.325674399565433" />
-      <entry key="M2" value="37.87209520106745" />
-      <entry key="M5" value="43.34090096833451" />
-      <entry key="M10" value="45.54799320134712" />
-      <entry key="M15" value="46.3362452707017" />
-      <entry key="M30" value="47.153078706635334" />
-      <entry key="H1" value="47.5726807679987" />
-      <entry key="H2" value="47.78536322559544" />
-      <entry key="H4" value="47.89243573926755" />
-      <entry key="D1" value="47.98203833873464" />
-      <entry key="W1" value="47.99743320699921" />
+      <entry key="MS100" value="1.0000001617198382" />
+      <entry key="MS500" value="1.0446703226550842" />
+      <entry key="S2" value="1.7926177980965623" />
+      <entry key="S5" value="3.61163438330838" />
+      <entry key="S10" value="6.718723254776327" />
+      <entry key="S30" value="20.030569635561992" />
+      <entry key="S60" value="33.19763897824431" />
+      <entry key="M2" value="45.414053669599234" />
+      <entry key="M5" value="56.33420427816048" />
+      <entry key="M10" value="60.87640833144388" />
+      <entry key="M15" value="62.51496787551149" />
+      <entry key="M30" value="64.22155707721859" />
+      <entry key="H1" value="65.10154786199298" />
+      <entry key="H2" value="65.54843423534814" />
+      <entry key="H4" value="65.77362813225895" />
+      <entry key="D1" value="65.96218920437705" />
+      <entry key="W1" value="65.9945964413574" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -73,23 +73,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.552674647141338" />
-      <entry key="MS500" value="1.8940228687141" />
-      <entry key="S2" value="2.757213672774972" />
-      <entry key="S5" value="5.40262298060204" />
-      <entry key="S10" value="10.102882992982455" />
-      <entry key="S30" value="23.064166409178227" />
-      <entry key="S60" value="31.30746416421316" />
-      <entry key="M2" value="37.8624260655566" />
-      <entry key="M5" value="43.33684969975294" />
-      <entry key="M10" value="45.54593061325057" />
-      <entry key="M15" value="46.33486140712597" />
-      <entry key="M30" value="47.152382209814974" />
-      <entry key="H1" value="47.57233134637797" />
-      <entry key="H2" value="47.785188217355014" />
-      <entry key="H4" value="47.89234816026534" />
-      <entry key="D1" value="47.982023731789056" />
-      <entry key="W1" value="47.9974311200363" />
+      <entry key="MS100" value="0.9460578007860588" />
+      <entry key="MS500" value="1.0332056905375444" />
+      <entry key="S2" value="1.7874378644752835" />
+      <entry key="S5" value="3.6063759022742707" />
+      <entry key="S10" value="6.7081492629831825" />
+      <entry key="S30" value="20.010710723624275" />
+      <entry key="S60" value="33.18111214327178" />
+      <entry key="M2" value="45.4032136169437" />
+      <entry key="M5" value="56.329052878098956" />
+      <entry key="M10" value="60.87367412863636" />
+      <entry key="M15" value="62.513107854594374" />
+      <entry key="M30" value="64.22060792017814" />
+      <entry key="H1" value="65.1010683922471" />
+      <entry key="H2" value="65.54819326424148" />
+      <entry key="H4" value="65.77350733594595" />
+      <entry key="D1" value="65.96216902835168" />
+      <entry key="W1" value="65.9945935580056" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -215,7 +215,8 @@
       <workItem from="1784073227682" duration="1585000" />
       <workItem from="1784084736003" duration="605000" />
       <workItem from="1784192013151" duration="280000" />
-      <workItem from="1784872956501" duration="132000" />
+      <workItem from="1784872956501" duration="1681000" />
+      <workItem from="1786247162711" duration="83000" />
     </task>
     <task id="LOCAL-00001" summary="ADD PUSH TO CANLING REPO">
       <option name="closed" value="true" />
@@ -497,7 +498,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782814751560</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="基础镜像添加 docker 客户端">
+      <option name="closed" value="true" />
+      <created>1784873109590</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1784873109590</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,7 +536,8 @@
     <MESSAGE value="独立编译 nginx" />
     <MESSAGE value="FIX NGINX COMPILE BUG." />
     <MESSAGE value="update font build." />
-    <option name="LAST_COMMIT_MESSAGE" value="update font build." />
+    <MESSAGE value="基础镜像添加 docker 客户端" />
+    <option name="LAST_COMMIT_MESSAGE" value="基础镜像添加 docker 客户端" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>

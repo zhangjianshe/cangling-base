@@ -23,11 +23,11 @@ ENV JAVA_HOME=/usr/lib/jvm/default-java
 ENV PATH=$JAVA_HOME/bin:$PATH
 
 WORKDIR /src
-RUN wget https://download.osgeo.org/gdal/3.12.3/gdal-3.12.3.tar.gz \
-    && tar -xzf gdal-3.12.3.tar.gz
+RUN wget https://download.osgeo.org/gdal/3.13.0/gdal-3.13.0.tar.gz \
+    && tar -xzf gdal-3.13.0.tar.gz
 
 # 3. 编译 GDAL
-WORKDIR /src/gdal-3.12.3/build
+WORKDIR /src/gdal-3.13.0/build
 RUN cmake .. \
     -DCMAKE_BUILD_TYPE=Release \
     -DGDAL_BUILD_OPTIONAL_DRIVERS=ON \
